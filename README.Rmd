@@ -27,5 +27,5 @@ The barplotOr is a one function package to make barplot with each bar ordered ac
 ```{r inst01, eval=FALSE}
 # version from GitHub:
 # install.packages("devtools")
-devtools::install_github("frareb/devRate")
+devtools::install_github("frareb/barplotOr")
 ```

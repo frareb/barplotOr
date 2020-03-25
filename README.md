@@ -22,5 +22,5 @@ ordered according to its value.
 ``` r
 # version from GitHub:
 # install.packages("devtools")
-devtools::install_github("frareb/devRate")
+devtools::install_github("frareb/barplotOr")
 ```
