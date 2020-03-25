@@ -1,0 +1,141 @@
+---
+title: "Examples for package barplotOR"
+date: "`r Sys.Date()`"
+output: html_vignette
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r main00}
+library("barplotOr")
+set.seed(1234)
+```
+
+## Simple example
+
+```{r main01, fig.width=7}
+dataset <- matrix(sample(1:20, 13*8, replace = TRUE), ncol = 13)
+myCol <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A",
+           "#66A61E", "#E6AB02", "#A6761D", "#666666")
+barplot  (height = dataset, col = myCol, names.arg = LETTERS[1:13])
+barplotOr(height = dataset, col = myCol, names.arg = LETTERS[1:13])
+```
+
+## Some benefits of using barplotOr
+
+```{r main02, fig.width=7, fig.height=5}
+dataset <- matrix(sample(10:20, 13*8, replace = TRUE), ncol = 13)
+myCol <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A",
+           "#66A61E", "#E6AB02", "#A6761D", "#666666")
+# number in the barplot
+aBarPlot <- barplotOr(
+  height = dataset,
+  col = myCol, decr = FALSE,
+  names.arg = LETTERS[1:13])
+trash <- lapply(1:ncol(dataset), function(j){
+  sapply(1:nrow(dataset), function(i){
+    text(
+      x = aBarPlot[j],
+      y = cumsum(dataset[order(dataset[,j]), j])[i],
+      labels = dataset[order(dataset[,j])[i], j],
+      pos = 1
+    )
+  })
+})
+# position in the barplot
+aBarPlot <- barplotOr(
+  height = dataset,
+  col = myCol, decr = FALSE,
+  names.arg = LETTERS[1:13])
+trash <- lapply(1:ncol(dataset), function(j){
+  sapply(1:nrow(dataset), function(i){
+    text(
+      x = aBarPlot[j],
+      y = cumsum(dataset[order(dataset[,j]), j])[i],
+      labels = rev(rank(
+        dataset[order(dataset[,j]), j]))[i],
+      pos = 1
+    )
+  })
+})
+
+# number in the barplot
+aBarPlot <- barplotOr(
+  height = dataset,
+  col = myCol, decr = TRUE,
+  names.arg = LETTERS[1:13])
+trash <- lapply(1:ncol(dataset), function(j){
+  sapply(1:nrow(dataset), function(i){
+    text(
+      x = aBarPlot[j],
+      y = cumsum(dataset[order(dataset[,j], decreasing = TRUE), j])[i],
+      labels = dataset[order(dataset[,j], decreasing = TRUE)[i], j],
+      pos = 1
+    )
+  })
+})
+# position in the barplot
+aBarPlot <- barplotOr(
+  height = dataset,
+  col = myCol, decr = TRUE,
+  names.arg = LETTERS[1:13])
+trash <- lapply(1:ncol(dataset), function(j){
+  sapply(1:nrow(dataset), function(i){
+    text(
+      x = aBarPlot[j],
+      y = cumsum(dataset[order(dataset[,j], decreasing = TRUE), j])[i],
+      labels = rev(rank(
+        dataset[order(dataset[,j], decreasing = TRUE), j]))[i],
+      pos = 1
+    )
+  })
+})
+```
+
+## With real data
+
+Occurrences of letters from the main page of Wikipedia. Please note that this is just an example to illustrate the use of barplotOr, do not interprate the results as letters have been modified to the need of this vignette. They do not represent the real occurrences of letters.
+
+```{r main03, fig.width=7, fig.height=5}
+# occurrences of letters
+getOccuLet <- function(myURL){
+  xx <- try(readLines(con = myURL))
+  xx <- paste(xx, collapse = "")
+  xx <- tolower(xx)
+  xx <- trimws(xx)
+  xx <- gsub(pattern = "à|â|ã|ä|å", replacement = "a", x = xx)
+  xx <- gsub(pattern = "é|ê|è", replacement = "e", x = xx)
+  xx <- gsub(pattern = "ð|ø|ù|û|ò|ò|ÿ|ó|á|ü|ú|ì|þ|î|ï|ë|ô|õ|ö|æ|í|ß|ç", replacement = "", x = xx)
+  xx <- gsub(pattern = "ñ", replacement = "n", x = xx)
+  xx <- gsub(pattern = "[^[:alpha:]]", replacement = "", x = xx)
+  xx <- strsplit(xx, "")[[1]]
+  return(table(xx))
+}
+getFR <- as.data.frame(getOccuLet(myURL = "https://fr.wikipedia.org/"))
+getES <- as.data.frame(getOccuLet(myURL = "https://es.wikipedia.org/"))
+getIT <- as.data.frame(getOccuLet(myURL = "https://it.wikipedia.org/"))
+getEN <- as.data.frame(getOccuLet(myURL = "https://en.wikipedia.org/"))
+getPT <- as.data.frame(getOccuLet(myURL = "https://pt.wikipedia.org/"))
+getDE <- as.data.frame(getOccuLet(myURL = "https://de.wikipedia.org/"))
+getPL <- as.data.frame(getOccuLet(myURL = "https://pl.wikipedia.org/"))
+
+all <- list(getFR, getES, getIT, getEN, getPT, getDE, getPL)
+res <- Reduce(function(x, y) merge(x, y, by = "xx"), all)
+myCol <- sample(x = colors(), size = 26)
+
+# with barplot:
+barplot(
+  height = as.matrix(res[,2:ncol(res)]),
+  col = myCol, width = 1,
+  names.arg = c("FR", "ES", "IT", "EN", "PT", "DE", "PL"))
+legend("topright", legend = res[,1], fill = myCol, ncol = 6)
+
+# with barplotOr:
+barplotOr(
+  height = as.matrix(res[,2:ncol(res)]),
+  col = myCol, width = 1,
+  names.arg = c("FR", "ES", "IT", "EN", "PT", "DE", "PL"))
+legend("topright", legend = res[,1], fill = myCol, ncol = 6)
+```
