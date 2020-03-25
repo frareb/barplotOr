@@ -25,7 +25,6 @@ barplotOr <- function(height, col, decr = TRUE, names.arg = "", ...){
     height = matrix(dfi[, 1], ncol = 1),
     col = as.character(dfi[, 2]),
     space = defBarplot[1] - 0.5,
-    # width = 0.8,
     xlim = c(0, max(defBarplot)),
     ylim = c(0, max(colSums(height))),
     names.arg = names.arg[1], ...)
@@ -38,7 +37,6 @@ barplotOr <- function(height, col, decr = TRUE, names.arg = "", ...){
       col = as.character(dfi[, 2]),
       add = TRUE,
       space = defBarplot[i] - 0.5,
-      # width = 0.8,
       axes = FALSE,
       names.arg = names.arg[i], ...)
   })
