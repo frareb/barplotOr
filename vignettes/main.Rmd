@@ -27,7 +27,7 @@ barplot  (height = dataset, col = myCol, names.arg = LETTERS[1:13])
 barplotOr(height = dataset, col = myCol, names.arg = LETTERS[1:13])
 ```
 
-## Some benefits of using barplotOr
+## Adding value or rank in the barplot
 
 ```{r main02, fig.width=7, fig.height=5}
 dataset <- matrix(sample(10:20, 13*8, replace = TRUE), ncol = 13)
@@ -98,9 +98,9 @@ trash <- lapply(1:ncol(dataset), function(j){
 })
 ```
 
-## With real data
+## Example with real data: counting letter occurrences
 
-Occurrences of letters from the main page of Wikipedia. Please note that this is just an example to illustrate the use of barplotOr, do not interprate the results as letters have been modified to the need of this vignette. They do not represent the real occurrences of letters.
+In this example occurrences of letters are extracted from the main page of Wikipedia in different languages. Please note that this is just an example to illustrate the use of barplotOr, do not interprate the results as some letters have been modified to reduce the complexity of this vignette. They do not represent the real occurrences of letters.
 
 ```{r main03, fig.width=7, fig.height=5}
 # occurrences of letters
@@ -143,3 +143,7 @@ barplotOr(
   names.arg = c("FR", "ES", "IT", "EN", "PT", "DE", "PL"))
 legend("topright", legend = res[,1], fill = myCol, ncol = 6)
 ```
+
+## Example from the literature
+
+An earlier version of the barplotOr function was used to build Figure 3 in Rebaudo and Rabhi (Rebaudo F., Rabhi V.B. (2018) Modeling temperature-dependent development rate and phenology in insects: review of major developments, challenges, and future directions. Entomologia Experimentalis et Applicata, 166(8): 607-617. [DOI: 10.1111/eea.12693]).
