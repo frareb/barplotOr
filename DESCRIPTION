@@ -7,7 +7,7 @@ Maintainer: Francois Rebaudo <francois.rebaudo@ird.fr>
 Description: Sometimes it is convenient to order the bars in a barplot made
     from a matrix with option beside = FALSE. This is a one function package 
     to do it.
-License: GPL2
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2

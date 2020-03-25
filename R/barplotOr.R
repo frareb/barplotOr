@@ -13,7 +13,7 @@
 #' set.seed(1234)
 #' dataset <- matrix(sample(1:20, 104, replace = TRUE), ncol = 26)
 #' myCol <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A")
-#' barplot  (height = dataset, col = myCol, names.arg = LETTERS)
+#' graphics::barplot(height = dataset, col = myCol, names.arg = LETTERS)
 #' barplotOr(height = dataset, col = myCol, names.arg = LETTERS)
 #' @export
 barplotOr <- function(height, col, decr = TRUE, names.arg = "", ...){
@@ -32,7 +32,7 @@ barplotOr <- function(height, col, decr = TRUE, names.arg = "", ...){
     dfi <- data.frame(
       height[,i],
       col[1:nrow(height)])[order(height[,i], decreasing = decr),]
-    barplot(
+    graphics::barplot(
       height = matrix(dfi[, 1], ncol = 1),
       col = as.character(dfi[, 2]),
       add = TRUE,

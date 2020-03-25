@@ -32,6 +32,6 @@ Function to make a barplot from a matrix with argument
 set.seed(1234)
 dataset <- matrix(sample(1:20, 104, replace = TRUE), ncol = 26)
 myCol <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A")
-barplot  (height = dataset, col = myCol, names.arg = LETTERS)
+graphics::barplot(height = dataset, col = myCol, names.arg = LETTERS)
 barplotOr(height = dataset, col = myCol, names.arg = LETTERS)
 }
