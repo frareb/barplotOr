@@ -1,7 +1,11 @@
 ---
 title: "Examples for package barplotOR"
 date: "`r Sys.Date()`"
-output: html_vignette
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{main}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}

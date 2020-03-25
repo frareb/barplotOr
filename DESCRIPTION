@@ -11,3 +11,8 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/frareb/barplotOr/
+BugReports: https://github.com/frareb/barplotOr/issues
